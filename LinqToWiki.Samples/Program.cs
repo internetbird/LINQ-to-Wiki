@@ -27,14 +27,30 @@ namespace LinqToWiki.Samples
 
         private static void QuerySomething(Wiki wiki)
         {
-            var result = wiki.Query.allpages()
-                         .Where(p => p.prefix == "Mozart")
-                         .Pages.Select(p => p.info.title).ToEnumerable().Take(10);
 
-            foreach (string title in result)
+            string PromptPagePrefix()
             {
-                Console.WriteLine(title);
+                Console.Write("Please specify prefix ('exit' to end session):");
+                return Console.ReadLine();
             }
+
+            var prefix = PromptPagePrefix();
+
+            while(prefix != "exit")
+            {
+
+                var result = wiki.Query.allpages()
+                             .Where(p => p.prefix== prefix)
+                             .Pages.Select(p => p.info.title).ToEnumerable().Take(10);
+
+                foreach (string title in result)
+                {
+                    Console.WriteLine(title);
+                }
+
+                prefix = PromptPagePrefix();
+            }
+          
         }
 
         #endregion
