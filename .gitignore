@@ -6,3 +6,4 @@ bin/
 obj/
 /Tools/LinqToWiki.Codegen.App/
 /packages/
+/.vs/LinqToWiki/v15/Server/sqlite3

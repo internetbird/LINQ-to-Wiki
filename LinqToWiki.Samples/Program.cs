@@ -16,9 +16,28 @@ namespace LinqToWiki.Samples
             var wiki = new Wiki("LinqToWiki.Samples", "https://en.wikipedia.org", "/w/api.php");
             // Login(wiki, "username", "password");
 
-            Compare(wiki);
+            //Compare(wiki);
             // Categories(TitlePages(wiki));
+            QuerySomething(wiki);
+
+            Console.ReadKey();
         }
+
+        #region My Test Methods
+
+        private static void QuerySomething(Wiki wiki)
+        {
+            var result = wiki.Query.allpages()
+                         .Where(p => p.prefix == "Mozart")
+                         .Pages.Select(p => p.info.title).ToEnumerable().Take(10);
+
+            foreach (string title in result)
+            {
+                Console.WriteLine(title);
+            }
+        }
+
+        #endregion
 
         #region Simple methods
 
